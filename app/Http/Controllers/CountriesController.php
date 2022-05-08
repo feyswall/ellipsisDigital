@@ -14,8 +14,12 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        $countries = Country::orderBy('id', 'desc')->get();
-        return response()->json( $countries );
+        try{
+            $countries = Country::orderBy('id', 'desc')->get();
+            return response()->json( $countries );
+        }catch(e){
+            return response()->json(['error' => e.message ]);
+        }
     }
 
     /**

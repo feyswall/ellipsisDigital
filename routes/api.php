@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // public routes
+Route::post('/register', [AuthController::class, 'register' ]);
+Route::get('/users', [AuthController::class, 'index']);
 
 
 // protected routes
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+
 Route::middleware('auth:sanctum')->group(function(){
     Route::resource('/country', CountriesController::class );
 });
