@@ -22,13 +22,12 @@ class AuthController extends Controller
             'password' => Hash::make( $valid_user['password'] ),
         ]);
 
-        $token = $user->createToken("justtrial")->plainTextToken;
+        $token = $user->createToken("creator")->plainTextToken;
 
         $response_data = [
             'user' => $user,
             'token' => $token, 
         ];
-
         return response()->json($response_data);
     }
 
