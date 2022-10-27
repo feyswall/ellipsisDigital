@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Like;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LikesController extends Controller
 {
@@ -32,11 +33,27 @@ class LikesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function like(Request $request)
     {
-        //
+        $this->dislike( $request );
+        Like::create([
+            'user_id' => Auth::user()->id,
+            'book_id' => $request->book_id,
+        ]);
+        return redirect()->back()->with('status', 'You like the book');
+    }
+
+    public function dislike(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $likes = Like::select('*')->where('user_id', $user_id)
+            ->where('book_id', $request['book_id'])
+            ->get();
+            foreach( $likes as $like ){
+                $like->delete();
+            }
+        return redirect()->back();
     }
 
     /**

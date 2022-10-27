@@ -28,7 +28,7 @@
                             @method("patch")
                             <div class="d-flex flex-row align-items-center mb-4">
                               <div class="form-outline flex-fill mb-0">
-                                <input type="text" id="book_title" name="book_title" class="form-control" />
+                                <input type="text" id="book_title" name="book_title" class="form-control" value="{{ $book->book_name }}" />
                                 <label class="form-label" for="book_title">Book Tittle</label>
                                 @error("book_title")
                                 <span class="text-danger">{{ $message }}</span>

@@ -43,26 +43,35 @@ class BooksController extends Controller
     {
         $rules = [
             'book_title' => 'required|string|max:255',
-            'book' => 'required|mimes:pdf|max:2048',
-            'thumbnail' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'book' => 'nullable|mimes:pdf|max:2048',
+            'thumbnail' => 'nullable|mimes:png,jpg,jpeg|max:2048',
         ];
 
         Validator::make( $request->all(), $rules )->validate();
 
-//        getClientOriginalName(); getting file origin name
-
-        $fileName = time().'c.'.$request->book->extension();
-        $thumbnail_Name = time().'.'.$request->thumbnail->extension();
-
-        $request->book->move(public_path('uploads/books'), $fileName);
-        $request->thumbnail->move(public_path('uploads/thumbnails'), $thumbnail_Name);
-
-
-        $created = Book::create([
+        $uploader = [
             "book_name" => $request['book_title'],
-            "book_url" => $fileName,
-            "thumbnail" => $thumbnail_Name,
-        ]);
+        ];
+
+        if ( $request->book != null ){
+            $fileName = time().'c.'.$request->book->extension();
+            $request->book->move(public_path('uploads/books'), $fileName);
+
+            $uploader["book_url"] = $fileName;
+        }else{
+            $uploader["book_url"] = 'default_pdf.pdf';
+        }
+
+        if ( $request->thumbnail != null ){
+            $thumbnail_Name = time().'.'.$request->thumbnail->extension();
+            $request->thumbnail->move(public_path('uploads/thumbnails'), $thumbnail_Name);
+
+            $uploader["thumbnail"] = $thumbnail_Name;
+        }else{
+            $uploader['thumbnail'] = 'default_thumbnail.png';
+        }
+
+        $created = Book::create($uploader);
 
         if ( !$created ){
             return redirect()->back()->with('status', 'Profile updated!');
@@ -112,25 +121,30 @@ class BooksController extends Controller
     {
         $rules = [
             'book_title' => 'required|string|max:255',
-            'thumbnail' => 'required|mimes:png,jpg,jpeg|max:2048',
         ];
+
+        if ( $request->thumbnail != null ){
+            $rules['thumbnail']  = 'required|mimes:png,jpg,jpeg|max:2048';
+        }
 
         Validator::make( $request->all(), $rules )->validate();
 
-        $thumbnail_Name = time().'.'.$request->thumbnail->extension();
 
+        $updator = [ "book_name" => $request['book_title'] ];
 
+        if ( $request->thumbnail != null ){
 
-        if (File::exists(public_path('uploads/thumbnails/'.$book->thumbnail))) {
-            File::delete(public_path('uploads/thumbnails/'.$book->thumbnail));
+            $thumbnail_Name = time().'.'.$request->thumbnail->extension();
+
+            if (File::exists(public_path('uploads/thumbnails/'.$book->thumbnail))) {
+                File::delete(public_path('uploads/thumbnails/'.$book->thumbnail));
+            }
+            $request->thumbnail->move(public_path('uploads/thumbnails'), $thumbnail_Name);
+
+            $updator["thumbnail"] = $thumbnail_Name;
         }
 
-        $request->thumbnail->move(public_path('uploads/thumbnails'), $thumbnail_Name);
-
-        $created = $book->update([
-            "book_name" => $request['book_title'],
-            "thumbnail" => $thumbnail_Name,
-        ]);
+        $created = $book->update($updator);
 
         if ( !$created ){
             return redirect()->back()->with('error', 'fail to update book');
@@ -148,11 +162,15 @@ class BooksController extends Controller
     public function destroy(Book $book)
     {
         if (File::exists(public_path('uploads/thumbnails/'.$book->thumbnail))) {
-            File::delete(public_path('uploads/thumbnails/'.$book->thumbnail));
+            if ( $book->thumbnail != 'default_thumbnail.png'){
+                File::delete(public_path('uploads/thumbnails/'.$book->thumbnail));
+            }
         }
 
         if (File::exists(public_path('uploads/books/'.$book->book_url))) {
-            File::delete(public_path('uploads/books/'.$book->book_url));
+            if ( $book->book_url != 'default_pdf.pdf'){
+                File::delete(public_path('uploads/books/'.$book->book_url));
+            }
         }
 
         $book->delete();

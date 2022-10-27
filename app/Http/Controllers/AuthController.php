@@ -22,8 +22,8 @@ class AuthController extends Controller
 
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'password' => 'nullable|required_with:password_confirmation|string|confirmed',
+            'email' => 'required|email|unique:users',
+            'password' => 'required_with:password_confirmation|string|confirmed',
         ];
 
         $error  =  Validator::make( $request->all(), $rules );

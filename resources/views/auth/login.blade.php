@@ -20,7 +20,7 @@
                    @csrf
                    <!-- Email input -->
                    <div class="form-outline mb-4">
-                       <input type="email"  name="email" id="email" class="form-control" />
+                       <input type="email"  name="email" id="email" class="form-control" value="{{ old('email') }}" />
                        <label class="form-label" for="email">Email address</label>
                        @error("email")
                        <div class="alert alert-danger">{{ $message }}</div>

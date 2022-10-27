@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CommentsController extends Controller
 {
@@ -36,7 +38,23 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'comment' => 'required|string|max:255|min:1',
+        ];
+
+        Validator::make( $request->all(), $rules )->validate();
+
+        $comment = Comment::create([
+            'user_id' => Auth::user()->id,
+            'book_id' => $request['book_id'],
+            'comment' => $request['comment']
+        ]);
+
+        if ( $comment ){
+            return redirect()->route('admin.book.show', $request['book_id']);
+        }else{
+            return redirect()->back()->with('error', 'Fail To Comment');
+        }
     }
 
     /**

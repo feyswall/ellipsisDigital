@@ -13,11 +13,26 @@ class Book extends Model
 
     /**
      * Get all of the favouriates for the Book
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function favouriates()
     {
         return $this->hasMany(Favouriate::class);
+    }
+
+    /**
+     * Get all of the comments for the Book
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
+    /**
+     * Get all of the likes for the Book
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

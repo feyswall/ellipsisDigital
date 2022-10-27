@@ -53,7 +53,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments(): HasMany
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
@@ -61,10 +61,8 @@ class User extends Authenticatable
 
     /**
      * Get all of the favouriates for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function favouriates(): HasMany
+    public function favouriates()
     {
         return $this->hasMany(Favouriate::class);
     }
@@ -73,10 +71,8 @@ class User extends Authenticatable
 
     /**
      * Get all of the likes for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function likes(): HasMany
+    public function likes()
     {
         return $this->hasMany(LIke::class, 'foreign_key', 'local_key');
     }

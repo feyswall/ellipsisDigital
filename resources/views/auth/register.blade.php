@@ -31,7 +31,7 @@
 
                                 <div class="d-flex flex-row align-items-center mb-4">
                                   <div class="form-outline flex-fill mb-0">
-                                    <input type="text" id="name" name="name" class="form-control" />
+                                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"/>
                                     <label class="form-label" for="name">Name</label>
                                     @error("name")
                                     <span class="text-danger">{{ $message }}</span>
@@ -41,7 +41,7 @@
               
                                 <div class="d-flex flex-row align-items-center mb-4">
                                   <div class="form-outline flex-fill mb-0">
-                                    <input type="text" id="email" name="email" class="form-control" />
+                                    <input type="text" id="email" name="email" class="form-control" value="{{ old("email") }}" />
                                     <label class="form-label" for="email">Email</label>
                                     @error("email")
                                     <span class="text-danger">{{ $message }}</span>
