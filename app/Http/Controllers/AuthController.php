@@ -61,6 +61,47 @@ class AuthController extends Controller
 
 
 
+    public function login(Request $request){
+
+        $rules = [
+            'email' => "required|email",
+            'password' => "required"
+        ];
+
+        $validate = Validator::make( $request->all(), $rules );
+
+        if( $validate->fails() ){
+            return response()->json([ 'error' => "Incorrect Email", 'data' => $validate->errors()->all() ], 400);
+        }else{
+            $user = User::select('id', 'name', 'email', 'password')->where('email', '=', $request->email )->first();
+
+            if( $user != null ){
+
+                if( !Hash::check( $request->password, $user->password )  ){
+                    return  response()->json(['error' => 'Invalid email or password'], 400);
+                }
+
+                $tokenString = $request->email.' '.Carbon::now();
+
+                $token = $user->createToken($tokenString)->plainTextToken;
+
+                $response_data = [
+                    'user' => $user,
+                    'token' => $token,
+                ];
+                return response()->json( $response_data, 200 );
+
+            }else{
+                return response()->json(['error' => 'Invalid email or password'], 400);
+            }
+
+        }
+    }
+
+
+
+
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */

@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -25,7 +26,7 @@ class PermissionSeeder extends Seeder
 
         /** creating the permissions for our admin  */
         $adminPermissions = [
-            'books_access',
+            'book_access',
             'book_create',
             'book_show',
             'book_edit',
@@ -38,12 +39,18 @@ class PermissionSeeder extends Seeder
             'user_delete'
         ];
 
+        foreach ( $adminPermissions as $permission ){
+            Permission::create([
+                'name' => $permission
+            ]);
+        }
+
+
+
         /** creating permissions  for our user */
         $userPermissions = [
             'book_show'
         ];
-
-
 
         foreach ( $adminPermissions as $permission ){
             $adminRole->givePermissionTo($permission);
