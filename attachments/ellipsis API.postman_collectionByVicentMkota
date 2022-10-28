@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "d7e0434f-e393-4a56-9fb7-42467f92a29f",
+		"name": "ellipsis API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register user with API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1|5sTnr0u9ZgN0dIEILZyihYESJN7mF8YTp8TQViol",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "feyswal",
+							"type": "default"
+						},
+						{
+							"key": "email",
+							"value": "fey@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "chambila91",
+							"type": "default"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "chambila91",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://157.245.72.226:81/api/register",
+					"protocol": "http",
+					"host": [
+						"157",
+						"245",
+						"72",
+						"226"
+					],
+					"port": "81",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "register user with API",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/register?name=feyswal&email=fey@gmail.com&password=chambila91&password_confirmation=chambila91",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "feyswal"
+								},
+								{
+									"key": "email",
+									"value": "fey@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "chambila91"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "chambila91"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "The parameters that are required are\r\n- name\r\n- email\r\n- password\r\n- password_confimation"
+				}
+			]
+		},
+		{
+			"name": "getting popular books",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1|5sTnr0u9ZgN0dIEILZyihYESJN7mF8YTp8TQViol",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://157.245.72.226:81/api/books/popular",
+					"protocol": "http",
+					"host": [
+						"157",
+						"245",
+						"72",
+						"226"
+					],
+					"port": "81",
+					"path": [
+						"api",
+						"books",
+						"popular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getting all books",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1|5sTnr0u9ZgN0dIEILZyihYESJN7mF8YTp8TQViol",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://157.245.72.226:81/api/books",
+					"protocol": "http",
+					"host": [
+						"157",
+						"245",
+						"72",
+						"226"
+					],
+					"port": "81",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate_token_in_api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "fey@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "vvvvvvvvv",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://157.245.72.226:81/api/login",
+					"protocol": "http",
+					"host": [
+						"157",
+						"245",
+						"72",
+						"226"
+					],
+					"port": "81",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
