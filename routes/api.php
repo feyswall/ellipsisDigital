@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 
 Route::controller(\App\Http\Controllers\Api\BooksController::class)
-//    ->middleware(['auth:sanctum'])
+    ->middleware(['auth:sanctum'])
     ->group(function () {
     Route::get('/books',  'index')->name('books.index');
     Route::get('/books/popular',  'getPopularBooks')->name('books.popular');

@@ -20,7 +20,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::role('userRole')->get();
+        $users = User::role('userRole')->paginate(10);
         return view('admin.users.index')
             ->with('users', $users);
     }

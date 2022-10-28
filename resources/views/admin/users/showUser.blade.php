@@ -27,7 +27,6 @@
                                     @method('delete')
                                 </form>
                             </p>
-
                         </div>
                     </div>
                  </div>                 
@@ -36,6 +35,7 @@
         </div>
 @endsection
 
+@section('js')
 <script>
     function deleteUser(e) {
         if (confirm('Are you sure you want to delete the book?')) {
@@ -44,3 +44,4 @@
         }
     }
 </script>
+@endsection

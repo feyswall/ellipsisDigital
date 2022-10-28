@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <div>
+        <div class="mt-5">
             <h2 class="text-center">All Users</h2>
         </div>
         <table class="table">
@@ -25,14 +25,34 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary">Edit</button>
-                            <button class="btn btn-sm btn-danger">delete</button>
+                            <a href="{{ route('admin.user.edit', $user) }}" class="btn btn-sm btn-primary">Edit</a>
+                            <button class="btn btn-sm btn-danger" onClick="deleteUser()">delete</button>
                             <a href="{{ route("admin.user.show", $user ) }}" class="btn btn-sm btn-info">view</a>
+                            <form action="{{ route('admin.user.delete', $user) }}" method="post" id="deleteUserForm">
+                                @csrf
+                                @method('delete')
+                            </form>
                         </td>
                     </tr>
                 @endforeach
 
             </tbody>
         </table>
+
+        <div class="mb-5">
+            <span>{{ $users->links() }}</span>
+        </div>
     </div>
+@endsection
+
+
+@section('js')
+<script>
+    function deleteUser(e) {
+        if (confirm('Are you sure you want to delete the book?')) {
+            var form = document.querySelector("#deleteUserForm");
+            form.submit();
+        }
+    }
+</script>
 @endsection
