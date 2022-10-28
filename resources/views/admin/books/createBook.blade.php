@@ -32,6 +32,7 @@
               
                                 <div class="d-flex flex-row align-items-center mb-4">
                                   <div class="form-outline flex-fill mb-0">
+                                    <small>**optional</small>
                                     <input type="file" id="book" name="book" class="form-control" />
                                     <label class="form-label" for="book">book</label>
                                     @error("book")
@@ -42,6 +43,7 @@
               
                                 <div class="d-flex flex-row align-items-center mb-4">
                                   <div class="form-outline flex-fill mb-0">
+                                    <small>**optional</small>
                                     <input type="file" id="thumbnail" name="thumbnail" class="form-control" />
                                     <label class="form-label" for="thumbnail">Thumbnail</label>
                                     @error("thumbnail")

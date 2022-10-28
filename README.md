@@ -51,6 +51,7 @@ php artisan db:seed
 ```
 This will as well create **5000** books  records with it, so it will take some
 time to complete, please wait for 5 to 10 minutes.
+This data will have a default pdf and thumbnail.
 Those dummy data that will help you to start interacting with the system.
 
 
@@ -198,6 +199,11 @@ Sample response
 
 In website we have two User Privilege which are Admin and Users.
 Admin is pre-build in the system but a user can be registered.
+
+While inside the system Only User With admin privilege is the one who
+can create  Books.
+While creating a book a user will decide if he will supply a **pdf** and **thumbnail**
+if user will not add them the the default values will be used.
 
 
 ## System Testing 
