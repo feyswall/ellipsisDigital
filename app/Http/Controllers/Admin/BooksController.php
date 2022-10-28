@@ -18,7 +18,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::paginate(2);
+        $books = Book::paginate(20);
         return view("admin.books.books")
             ->with('books', $books);
     }
@@ -137,7 +137,9 @@ class BooksController extends Controller
             $thumbnail_Name = time().'.'.$request->thumbnail->extension();
 
             if (File::exists(public_path('uploads/thumbnails/'.$book->thumbnail))) {
-                File::delete(public_path('uploads/thumbnails/'.$book->thumbnail));
+                if ( $book->thumbnail != 'default_thumbnail.png') {
+                    File::delete(public_path('uploads/thumbnails/' . $book->thumbnail));
+                }
             }
             $request->thumbnail->move(public_path('uploads/thumbnails'), $thumbnail_Name);
 
