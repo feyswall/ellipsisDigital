@@ -3,6 +3,8 @@
 
 By ( Vicent Alphonce Mkota )
 
+**_Note_**: All the Attached files are found in https://github.com/feyswall/ellipsisDigital in the **attachments** folder.
+
 ## Technologies stack
 
 - **PHP  version 8.1^**
@@ -94,15 +96,121 @@ Also there is end point that deals with retrieving all books with is
 headers { Accept: Application/json }
 Authentication { Bearer Token: and pass your returned user token }
 
+The result is paginated and the pagination details are all listed.
+
+Sample response:
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": 1,
+            "book_name": "Ludie Kertzmann's Book",
+            "thumbnail": "default_thumbnail.png",
+            "book_url": "default_pdf.pdf"
+        },
+        {
+            "id": 2,
+            "book_name": "Roxanne Brown's Book",
+            "thumbnail": "default_thumbnail.png",
+            "book_url": "default_pdf.pdf"
+        },
+        {
+            "id": 20,
+            "book_name": "Luella Graham DDS's Book",
+            "thumbnail": "default_thumbnail.png",
+            "book_url": "default_pdf.pdf"
+        }
+    ],
+    "first_page_url": "http://localhost:8000/api/books?page=1",
+    "from": 1,
+    "last_page": 250,
+    "last_page_url": "http://localhost:8000/api/books?page=250",
+    "links": [
+        {
+            "url": null,
+            "label": "&laquo; Previous",
+            "active": false
+        },
+        {
+            "url": "http://localhost:8000/api/books?page=1",
+            "label": "1",
+            "active": true
+        },
+        {
+            "url": "http://localhost:8000/api/books?page=2",
+            "label": "Next &raquo;",
+            "active": false
+        }
+    ],
+    "next_page_url": "http://localhost:8000/api/books?page=2",
+    "path": "http://localhost:8000/api/books",
+    "per_page": 2,
+    "prev_page_url": null,
+    "to": 2,
+    "total": 6
+}
+
 
 And the last one is getting Popular Books, which are books with most likes
 **http://157.245.72.226:81/api/books/popular** with GET request
 headers { Accept: Application/json }
 Authentication { Bearer Token: and pass your returned user token }
 
+Sample response
+```angular2html
+[
+    {
+        "book_id": 7,
+        "total": 1,
+        "book": {
+            "id": 7,
+            "book_name": "Sister Klein's Book",
+            "book_url": "default_pdf.pdf",
+            "thumbnail": "default_thumbnail.png"
+        }
+    },
+    {
+        "book_id": 9,
+        "total": 1,
+        "book": {
+            "id": 9,
+            "book_name": "Dr. Jovani Keeling's Book",
+            "book_url": "default_pdf.pdf",
+            "thumbnail": "default_thumbnail.png"
+        }
+    },
+    {
+        "book_id": 11,
+        "total": 1,
+        "book": {
+            "id": 11,
+            "book_name": "Courtney Kuhic MD's Book",
+            "book_url": "default_pdf.pdf",
+            "thumbnail": "default_thumbnail.png"
+        }
+    }
+]
+```
+
 
 - **WEB**
 
 In website we have two User Privilege which are Admin and Users.
+Admin is pre-build in the system but a user can be registered.
 
-Admin is pre-build in the system but a user can register.
+
+## System Testing 
+
+**Feature Test** - In the sake ot time i conducted feature change in comments call alone
+
+**test_the_book_user_index_page_rendering()** - To test if the books page display as expected
+
+**test_the_book_admin_index_page_rendering()** - To test if the books page on admin page displays as expected
+
+**test_the_book_fetching_from_the_api_rendering()** - To test if the books are fetched successfully from the API
+
+**test_if_admin_can_create_books()** - Test if admin can crate books without problems
+
+To  see this test go to the project folder and write the following command
+
+``` php artisan  test --filter BookControllerTest ```

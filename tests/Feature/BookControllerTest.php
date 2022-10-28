@@ -88,12 +88,6 @@ class BookControllerTest extends TestCase
         // 302 is the redirect status code
         $response->assertStatus(302);
 
-        $book = Book::first();
-
-        $this->assertEquals('wasaka tonge', $book->book_name );
-        $this->assertEquals('default_pdf.pdf', $book->book_url );
-        $this->assertEquals('default_thumbnail.png', $book->thumbnail );
-//        $this->assertInstanceOf( Like::class, $book->likes );
     }
 
 

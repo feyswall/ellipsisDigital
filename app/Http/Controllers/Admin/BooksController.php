@@ -54,9 +54,14 @@ class BooksController extends Controller
         ];
 
         if ( $request->book != null ){
-            $fileName = time().'c.'.$request->book->extension();
-            $request->book->move(public_path('uploads/books'), $fileName);
 
+            $image = $request->file('book');
+            $extension = $image->getClientOriginalExtension();//Getting extension
+            $originalname = $image->getClientOriginalName();//Getting original name
+            $path = $image->move('uploads/books/' , $originalname);
+
+            $fileName = $originalname;
+            
             $uploader["book_url"] = $fileName;
         }else{
             $uploader["book_url"] = 'default_pdf.pdf';
