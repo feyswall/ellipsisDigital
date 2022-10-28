@@ -99,6 +99,7 @@ Authentication { Bearer Token: and pass your returned user token }
 The result is paginated and the pagination details are all listed.
 
 Sample response:
+```
 {
     "current_page": 1,
     "data": [
